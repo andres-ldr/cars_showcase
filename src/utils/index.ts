@@ -1,7 +1,7 @@
 import { CarProps, FilterProps } from '@/types';
 
 export async function fetchCars(filters: FilterProps) {
-  const {manufacturer, year, model, limit, fuel} = filters
+  const { manufacturer, year, model, limit, fuel } = filters;
   const url = `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`;
   const options = {
     method: 'GET',
@@ -39,4 +39,12 @@ export const generateCarImageUrl = async (car: CarProps, angle?: string) => {
   url.searchParams.append('customer', '');
   // url.searchParams.append('make', model.split(' '))
   return url.toString();
+};
+
+export const updateSearchParams = (type: string, value: string) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(type, value);
+
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+  return newPathname;
 };
