@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 
 export interface CustomButtomProps {
   title: string;
@@ -50,9 +50,13 @@ export interface OptionProps {
 export interface CustomFilterProps {
   title: string;
   options: OptionProps[];
+  setFilter:
+    | Dispatch<SetStateAction<string>>
+    | Dispatch<SetStateAction<number>>;
 }
 
 export interface ShowMoreProps {
   pageNumber: number;
   isNext: boolean;
+  setLimit: Dispatch<SetStateAction<number>>;
 }
