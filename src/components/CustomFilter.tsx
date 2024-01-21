@@ -1,28 +1,22 @@
 'use client';
 
-import { Listbox, Transition } from '@headlessui/react';
-import { updateSearchParams } from '@/utils';
 import { CustomFilterProps } from '@/types';
-import { useRouter } from 'next/navigation';
-import { Fragment, useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
 import Image from 'next/image';
+import { Fragment, SetStateAction, useState } from 'react';
 
-const CustomFilter = ({ title, options }: CustomFilterProps) => {
+const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
   const [selected, setSelected] = useState(options[0]);
-  const router = useRouter();
-
-  const handleUpdateParams = (e: { title: string; value: string }) => {
-    const newPathName = updateSearchParams(title, e.value.toLowerCase());
-    router.push(newPathName);
-  };
 
   return (
     <div className='w-fit'>
       <Listbox
         value={selected}
         onChange={(e) => {
+          const value = e.value as SetStateAction<string> &
+            SetStateAction<number>;
           setSelected(e);
-          handleUpdateParams(e);
+          setFilter(value);
         }}
       >
         <div className='relative w-fit z-10'>
